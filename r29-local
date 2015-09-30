@@ -1,0 +1,20 @@
+#/usr/bin/env bash
+
+# Confirm Virtualbox install
+
+# Confirm Vagrant install
+
+# Confirm Ansible install
+
+# Get latest box
+
+# Run local ansible to download refinery29 rocketship zeppelin repos
+# and setup hosts file
+
+      'ip_address' => ip_address,
+      'hostname' => hostname,
+      'user_key_file' => user_key_file,
+      'shared_repos' => shared_repos
+
+# Vagrant up
+vagrant up

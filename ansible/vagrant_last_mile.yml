@@ -1,0 +1,14 @@
+---
+- host: all
+  tasks:
+  - name: Build Refinery29 application with `r29 assets all`
+    command: /var/devops-r29-scripts/bin/r29 assets all
+    become: yes
+    become_user: devuser
+
+  - name: Update composer
+    command: php composer.phar install
+    args:
+      chdir: /var/refinery29
+    become: yes
+    become_user: devuser

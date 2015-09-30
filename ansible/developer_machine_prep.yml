@@ -1,0 +1,34 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  sudo: yes
+  tasks:
+  - name: Add development hostnames to hosts file
+    lineinfile:
+      line: "{{ ip_address }} {{ item }}"
+      dest: /etc/hosts
+      regexp: "{{ ip_address | replace('.', '\\.') }}\ *{{ item | replace('.', '\\.') }}"
+    with_items:
+    - "{{ hostname }}"
+    - "api.{{ hostname }}"
+    - "dash.{{ hostname }}"
+    - "feed.{{ hostname }}"
+    - "preview.{{ hostname }}"
+    - "shop.{{ hostname }}"
+    - "static.{{ hostname }}"
+    - "www.{{ hostname }}"
+
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  sudo: no
+  tasks:
+  - name: Clone source
+    git: >
+      repo=git@github.com:refinery29/{{ item }}.git
+      dest={{ current_directory }}/{{ item }}
+      accept_hostkey=yes
+      key_file={{ user_key_file }}
+      version=master
+    with_items: shared_repos
